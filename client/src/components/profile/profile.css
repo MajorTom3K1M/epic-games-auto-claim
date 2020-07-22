@@ -1,0 +1,402 @@
+
+/* -------------------------------------------------- */
+.card {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px !important;
+    border-radius: 0 !important;
+}
+
+.card-img-top {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    object-fit: cover;
+}
+
+.card-body {
+    z-index: 999;
+    background-color: #202020 !important;
+    /* background: linear-gradient(to bottom,rgba(61,61,61,0.6),rgba(0,0,0,0)); */
+}
+
+.card-title {
+    color: #fff;
+    margin-bottom: .75rem;
+}
+
+.card-text {
+    color: #fff;
+    opacity: 0.5;
+} 
+
+@keyframes card-img-overlay {
+    from {
+        transform: translateY(250px);
+        background-color: rgba(0,0,0,0);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        background-color: rgba(0,0,0,0.5);
+        opacity: 1;
+    }
+  }
+
+.card-img-overlay {
+    transform: translateY(0px);
+    background-color: rgba(0,0,0,0.5);
+    animation-name: card-img-overlay;
+    animation-duration: 1s;
+}
+
+.greet-text {
+    text-transform: uppercase;
+    color: #202020;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 60px;
+}
+
+.profile-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.content {
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden;
+}
+
+@media (min-width: 1024px) {
+    .content {
+        max-width: calc(1600px + (100vw / 64 * 8) + (100vw / 64 * 8));
+        overflow-x: auto;
+        padding-left: calc(100vw / 64 * 8);
+        padding-right: calc(100vw / 64 * 8);
+    }
+}
+
+.card-container {
+    overflow: hidden;
+    color: #fff;
+    position: relative;
+    background: rgba(255,255,255,0.10);
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+    .card-container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .card-container {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+.card-container-title {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    min-height: 30px;
+    margin-bottom: 25px;
+}
+
+@media (min-width: 1024px) {
+    .card-container-title-text {
+        font-size: 30px;
+        -webkit-letter-spacing: -0.3px;
+        -moz-letter-spacing: -0.3px;
+        -ms-letter-spacing: -0.3px;
+        letter-spacing: -0.3px;
+        line-height: 1.2;
+        text-transform: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-container-title-text {
+        font-size: 26px;
+        -webkit-letter-spacing: -0.3px;
+        -moz-letter-spacing: -0.3px;
+        -ms-letter-spacing: -0.3px;
+        letter-spacing: -0.3px;
+        line-height: 1;
+        font-weight: 400;
+        text-transform: none;
+    }
+}
+
+.card-container-title-text {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 20px;
+    -webkit-letter-spacing: -0.2px;
+    -moz-letter-spacing: -0.2px;
+    -ms-letter-spacing: -0.2px;
+    letter-spacing: -0.2px;
+    line-height: 1.25;
+    text-transform: none;
+    font-size: 18px;
+    line-height: 1.4;
+    text-transform: none;
+}
+
+.CardGrid-groupWrapper {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    overflow-x: visible;
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.CardGrid-group {
+    -webkit-flex-basis: auto;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -webkit-flex-shrink: 1;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+.Card:first-child {
+    margin-left: 0;
+}
+
+.Card {
+    margin-left: 1rem;
+}
+
+.Card {
+    -webkit-flex-shrink: 1;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    overflow: hidden;
+    -webkit-flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+}
+
+[dir] .CardGrid-card {
+    margin-bottom: 0.5rem;
+}
+
+.CardGrid-card {
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    .Card-itemgroup {
+        padding-bottom: 0;
+    }
+}
+
+.Card-itemgroup {
+    -webkit-transition: background-color 125ms ease-in-out;
+    transition: background-color 125ms ease-in-out;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    padding-bottom: 10px;
+    background-color: transparent;
+    font-size: 1rem;
+    line-height: normal;
+}
+
+.Card-item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+
+.Card-imagegroup {
+    display: block;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.Card-image {
+    position: relative;
+    padding-bottom: calc(4 / 3 * 100%);
+    background: linear-gradient(to bottom,rgba(61,61,61,0.6),rgba(0,0,0,0));
+    color: #535353;
+}
+
+.Picture-picture {
+    min-height: 0.06rem;
+}
+
+.Picture-visible {
+    transition-delay: 450ms;
+}
+
+.Picture-image {
+    -webkit-transition: opacity 125ms ease-in-out;
+}
+
+.OfferCardImageArt-picture {
+    height: 100%;
+    width: auto;
+    position: absolute;
+}
+
+.Picture-visible {
+    opacity: 1;
+    -webkit-transition-delay: 450ms;
+    -o-transition-delay: 450ms;
+}
+
+.Picture-image {
+    -o-transition: opacity 125ms ease-in-out;
+    transition: opacity 125ms ease-in-out;
+}
+
+.css-1upwnh0 {
+    height: 100%;
+    width: auto;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    transform: translate(-50%);
+}
+
+.Card-image::after {
+    -webkit-transition: opacity 125ms ease-in-out;
+    transition: opacity 125ms ease-in-out;
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@media (max-width: 1279px) and (min-width: 1024px) {
+    .game-title {
+        font-size: 12px;
+        -webkit-letter-spacing: 0.17px;
+        -moz-letter-spacing: 0.17px;
+        -ms-letter-spacing: 0.17px;
+        letter-spacing: 0.17px;
+        line-height: 1.5;
+        text-transform: none;
+    }
+}
+.game-title {
+    font-size: 14px;
+    -webkit-letter-spacing: 0.2px;
+    -moz-letter-spacing: 0.2px;
+    -ms-letter-spacing: 0.2px;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+    font-weight: 400;
+    text-transform: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.OfferTitleInfo-title {
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--theme-ui-primary-text);
+    display: block;
+}
+
+.OfferTitleInfo-subtitle {
+    display: block;
+    font-weight: 400;
+    color: var(--theme-ui-primary-text);
+    opacity: 0.5;
+}

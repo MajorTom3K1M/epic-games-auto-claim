@@ -1,0 +1,82 @@
+.filled {
+    background-color: #484848;
+    color: #f4f4f4;
+}
+
+.MuiFormControl-fullWidth {
+    width: 100%;
+}
+
+.masked-code input {
+    text-align: center;
+    letter-spacing: 16px;
+    font-size: 38px;
+    padding: 0;
+    font-family: monospace;
+    background-color: #202020!important;
+}
+
+.MuiInputBase-input:invalid {
+    box-shadow: none;
+}
+
+.custom-styles {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    --ReactInputVerificationCode-itemWidth: 2.2rem;
+    --ReactInputVerificationCode-itemHeight: 3.5rem;
+}
+
+.custom-styles .ReactInputVerificationCode__item {
+    position: relative;
+    color: #fff;
+    font-size: 38px;
+    font-weight: 400;
+}
+  
+.custom-styles .ReactInputVerificationCode__item,
+.custom-styles .ReactInputVerificationCode__item.is-active {
+    box-shadow: none;
+}
+  
+.custom-styles .ReactInputVerificationCode__item:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ebebeb;
+    transition: background-color 0.2s ease-out;
+}
+
+.custom-styles .haveInput:after {
+    height: 0px;
+}
+/* .custom-styles .ReactInputVerificationCode__item.is-active:after {
+    height: 0px;
+    background-color: #046cde;
+} */
+
+.controls-horizontal {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.controls-horizontal .CancelButton, .controls-horizontal .SubmitButton {
+    margin-top: 0;
+}
+
+.MuiButton-containedSecondary {
+    color: #fff !important;
+    background-color: #333333 !important;
+}
+
+.MuiButton-contained {
+    color: rgba(0, 0, 0, 0.87);
+    box-shadow: none;
+    background-color: #e0e0e0;
+}

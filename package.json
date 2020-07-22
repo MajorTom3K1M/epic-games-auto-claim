@@ -1,0 +1,35 @@
+{
+  "name": "epicgames-auto-claim",
+  "version": "1.0.0",
+  "description": "EpicGames Auto Claim",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MajorTom",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "colors": "^1.4.0",
+    "connect-mongodb-session": "^2.3.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "filenamify": "^4.1.0",
+    "got": "^11.5.0",
+    "jsdom": "^16.3.0",
+    "lodash": "^4.17.19",
+    "mongodb": "^3.5.9",
+    "mongodb-uri": "^0.9.7",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.10",
+    "otpauth": "^6.0.4",
+    "set-cookie-parser": "^2.4.6",
+    "tough-cookie": "^4.0.0",
+    "tough-cookie-file-store": "^2.0.2",
+    "uuid": "^8.2.0"
+  }
+}

@@ -1,0 +1,339 @@
+.modalbase-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+@media only screen and (max-width: 470px) {
+    .modalbase-container .modalbase-content {
+        width: 100%;
+        height: 100%;
+        background-color: #202020;
+    }
+}
+
+.modalbase-container .modalbase-content {
+    text-align: center;
+    white-space: nowrap;
+    height: 100%;
+    margin: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: env(safe-area-inset-top);
+}
+
+.modalbase-container .modalbase-content:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.modalbase-container .modalbase-content .modalbase-card {
+    background-color: #202020;
+    position: relative;
+    border: none;
+    text-align: left;
+    text-align: initial;
+    white-space: normal;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 470px;
+    min-width: 320px;
+    width: 100%;
+}
+
+.modalbase-container .modalbase-content .modalbase-card .optional-top-spacer {
+    background-color: #202020;
+    height: 1.8em;
+    position: absolute;
+    top: -1.8em;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.modalbase-container .modalbase-content .modalbase-card .modalbase-card-content {
+    padding: 2.5em 60px 1em;
+}
+
+.layout-vertical {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 300px;
+}
+
+.epiclogo-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.epiclogo-layout .EpicLogo {
+    background: 50%/contain no-repeat
+}
+
+.layout-vertical .SocialBar, .layout-vertical .Subheading {
+    margin-top: 30px;
+}
+
+.MuiTypography-subtitle1 {
+    color: #F4F4F4;
+    font-size: 12px;
+    /* font-family: Brutal, sans-serif; */
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+}
+
+.MuiTypography-root {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.MuiTypography-subtitle1 {
+    color: #F4F4F4;
+    font-size: 12px;
+    /* font-family: Brutal, sans-serif; */
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+}
+
+.MuiTypography-root {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+.form-vertical, .message-success {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-vertical .form-field, .form-vertical .FormField, .form-vertical .SubmitButton, .message-success .form-field, .message-success .FormField, .message-success .SubmitButton {
+    margin-top: 15px;
+}
+
+.MuiFormControl-fullWidth {
+    width: 100%;
+}
+
+.MuiFormControl-root {
+    border: 0;
+    margin: 0;
+    display: inline-flex;
+    padding: 0;
+    position: relative;
+    min-width: 0;
+    border-radius: 0;
+    flex-direction: column;
+    vertical-align: top;
+    background-color: #2B2B2B;
+}
+
+input:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+
+.MuiInputBase-root.Mui-error {
+    background-color: #554343;
+}
+
+.MuiInputBase-root.Mui-focused {
+    background-color: #484848;
+}
+
+.MuiInput-root {
+    position: relative;
+}
+
+.MuiInputBase-root {
+    color: #fff;
+    cursor: text;
+    display: inline-flex;
+    position: relative;
+    font-size: 14px;
+    box-sizing: border-box;
+    align-items: center;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.MuiInputBase-input {
+    font: inherit;
+    color: #F4F4F4;
+    width: 100%;
+    border: 0;
+    height: 50px;
+    margin: 0;
+    display: block;
+    padding: 6px 0 7px;
+    min-width: 0;
+    background: none;
+    box-sizing: content-box;
+    padding-top: 0;
+    padding-left: 14px;
+    padding-right: 14px;
+    animation-name: mui-auto-fill-cancel;
+    padding-bottom: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.MuiInputAdornment-positionEnd {
+    height: 50px;
+    display: inline-block;
+    max-height: 50px;
+    line-height: 50px;
+    margin-left: 8px;
+    white-space: nowrap;
+    margin-right: 8px;
+}
+
+.MuiInputAdornment-root {
+    height: 0.01em;
+    display: flex;
+    max-height: 2em;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.validation-adornment {
+    white-space: nowrap;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input:focus {
+    background-color: #484848;
+    transition: background-color 0.1s;
+}
+
+.controls-vertical {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.MuiButton-contained.Mui-disabled {
+    color: rgba(255, 255, 255, 0.3) !important;
+    box-shadow: none !important;
+    background-color: rgba(18,18,18,0.5) !important;
+}
+
+.MuiButton-root.Mui-disabled {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.MuiButtonBase-root.Mui-disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
+.MuiButton-label {
+    width: 100%;
+    display: inherit;
+    align-items: inherit;
+    justify-content: inherit;
+}
+
+.form-vertical .form-field, .form-vertical .FormField, .form-vertical .SubmitButton, .message-success .form-field, .message-success .FormField, .message-success .SubmitButton {
+    margin-top: 15px;
+}
+
+.controls-vertical a, .controls-vertical button {
+    margin-top: 15px;
+}
+
+.MuiButton-fullWidth {
+    width: 100%;
+}
+
+.MuiButton-containedPrimary {
+    color: #fff !important;
+    background-color: #037BEE !important;
+}
+
+.MuiButton-contained {
+    color: rgba(0, 0, 0, 0.87);
+    box-shadow: none;
+    background-color: #e0e0e0;
+}
+
+.modalbase-container .modalbase-content .modalbase-card .optional-bottom-spacer {
+    background-color: #202020;
+    height: 3.3em;
+    position: absolute;
+    bottom: -3.3em;
+    left: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.MuiButton-root {
+    color: #fff;
+    height: 50px;
+    padding: 6px 16px;
+    font-size: 12px;
+    min-width: 40px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 500;
+    line-height: 16px;
+    border-radius: 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.MuiButtonBase-root {
+    color: inherit;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    display: inline-flex;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    align-items: center;
+    user-select: none;
+    border-radius: 0;
+    vertical-align: middle;
+    -moz-appearance: none;
+    justify-content: center;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
