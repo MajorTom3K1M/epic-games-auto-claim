@@ -41,7 +41,7 @@ const OnlyNotAuth = ({ userPresent, path, component: Component }) => (
         path={path}
         render={props => (
             userPresent ?
-                <Redirect to='/' /> :
+                <Redirect to='/profile' /> :
                 <Component {...props} />
         )}
     />

@@ -6,11 +6,10 @@ const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
 const colors = require('colors');
-const crypto = require('crypto');
-const _ = require('lodash');
 const loginApi = require("./routes/login");
 const freeGamesApi = require("./routes/free-games");
 const purchaseApi = require("./routes/purchase");
+const sessionApi = require("./routes/session");
 const cron = require("node-cron");
 const { initDb } = require('./lib/db');
 
@@ -36,7 +35,7 @@ app.use(session({
     cookie: {
         path: '/',
         httpOnly: true,
-        maxAge: 900000
+        maxAge: 86400000 * 365
     }
 }));
 app.use(bodyParser.json());
@@ -51,16 +50,13 @@ app.use(cors({
 app.use('/', loginApi);
 app.use('/', freeGamesApi);
 app.use('/', purchaseApi);
+app.use('/', sessionApi);
 
 app.enable('trust proxy');
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 app.set('port', process.env.PORT || 3001);
 app.get('/*', function (req, res) {
-    console.log(req.session);
-    // req.session.user = "test test test test";
-    // res.status(200).send("<h2>Hello World</h2>");
-    // res.cookie('connect.sid', req.session.id, { maxAge: 900000, httpOnly: true, path: "/" }).sendFile(path.join(__dirname, 'build', 'index.html'));
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 

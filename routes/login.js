@@ -20,6 +20,7 @@ router.post('/api/login', async (req, res) => {
         const { statusText, status } = await login.fullLogin(email, password, captchaValue);
 
         req.session.email = email;
+        req.session.userPresent = true;
 
         res.status(200).json({ statusText, status });
     } catch (e) {
@@ -55,6 +56,7 @@ router.post('/api/login/mfa', async (req, res) => {
         const { statusText, status } = await login.loginMFA(code, method, email);
         // await login.login(email, "", "");
         req.session.email = email;
+        req.session.userPresent = true;
 
         res.status(200).json({ statusText, status });
     } catch (e) {
