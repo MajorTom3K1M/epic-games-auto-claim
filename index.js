@@ -6,6 +6,7 @@ const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
 const FreeGames = require('./lib/free-games');
+const Login = require('./lib/login');
 const Purchase = require('./lib/purchase');
 const colors = require('colors');
 const loginApi = require("./routes/login");
@@ -73,10 +74,12 @@ cron.schedule('0 12 * * *', async () => {
     if (emailList.length && emailList.length > 0) {
         for (let email of emailList) {
             const requestClient = newCookieJar(email);
+            const login = new Login(requestClient);
             const freegames = new FreeGames(requestClient, email);
             const purchase = new Purchase(requestClient, email);
             try {
                 console.log('purchase for', email);
+                await login.fullLogin(email, "", "", "");
                 const offers = await freegames.getAllFreeGames();
                 await purchase.purchaseGames(offers);
             } catch (e) {
