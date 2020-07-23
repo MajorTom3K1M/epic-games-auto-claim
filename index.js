@@ -35,7 +35,7 @@ app.use(session({
     cookie: {
         path: '/',
         httpOnly: true,
-        maxAge: 86400000 * 365
+        maxAge: 86400000 * 730
     }
 }));
 app.use(bodyParser.json());

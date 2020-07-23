@@ -10,75 +10,26 @@ import {
     Container, Row
 } from 'reactstrap';
 
-function setupEnforcement(myEnforcement) {
-    console.log(myEnforcement)
-}
-
 class Captcha extends React.Component {
     state = {
-        loading: false,
-        sessionData: null
+        loading: false
     }
     componentDidMount() {
-        // console.log("Now it comes", new Arkose())
-        // if (window.FunCaptcha) {
-        //     this.scriptLoaded();
-        // } else {
-        // const script = document.getElementById("funcaptcha")
-        // script.onload = () => this.scriptLoaded();
-        // }
-        console.log(this.state);
-
         setTimeout(() => {
             this.scriptLoaded();
         }, 1000);
     }
-    componentDidUpdate(prevState) {
-        const { sessionData } = this.state;
-
-        // setTimeout(() => {
-        //     this.scriptLoaded();
-        // }, 1000);
-
-        if (this.props.location.state) {
-            var { email, password } = this.props.location.state;
-        }
-        // if (sessionData && prevState.sessionData !== sessionData) {
-        //     loginService.login(email, password, sessionData)
-        //         .then(({ statusText }) => {
-        //             if (statusText === "OK") {
-        //                 this.props.userDispatch(email);
-        //                 history.push("/profile", { email });
-        //             }
-        //         }).catch((e) => {
-        //             // console.log("error wtf", e)
-        //             if (
-        //                 e.response.data.errorCode === 'errors.com.epicgames.common.two_factor_authentication.required'
-        //             ) {
-        //                 const method = e.response.data.metadata.twoFactorMethod;
-        //                 history.push("/twofactor", { email, password, method });
-        //             } else {
-        //                 history.push("/");
-        //             }
-        //         });
-        // }
-    }
 
     scriptLoaded() {
         this.setState({ loading: true });
-        // console.log(this.props.location.state)
         if (this.props.location.state) {
             var { email, password } = this.props.location.state;
         }
 
-        let obj = new window.FunCaptcha({
+        new window.FunCaptcha({
             public_key: EpicArkosePublicKey.LOGIN,
             target_html: "CAPTCHA",
             callback: (sessionData) => {
-                // this.setState({ sessionData });
-                // this.setState({ loading: false });
-                console.log("CAPTCHA!!!!")
-
                 loginService.login(email, password, sessionData)
                     .then(({ statusText }) => {
                         if (statusText === "OK") {
@@ -86,7 +37,6 @@ class Captcha extends React.Component {
                             history.push("/profile", { email });
                         }
                     }).catch((e) => {
-                        // console.log("error wtf", e)
                         if (
                             e.response.data.errorCode === 'errors.com.epicgames.common.two_factor_authentication.required'
                         ) {
@@ -96,26 +46,6 @@ class Captcha extends React.Component {
                             window.location.path = '/';
                         }
                     });
-            console.log(obj);
-                // try {
-                //     const { statusText } = await loginService.login(email, password, sessionData);
-                //     console.log("IT OK BUT NOT SEND ANY.");
-                //     if (statusText === "OK") {
-                //         history.push("/profile", { email });
-                //     }
-                // } catch (e) {
-                //     history.push("/");
-                // }
-                // loginService.login(email, password, sessionData)
-                //     .then(({ statusText }) => {
-                //         console.log("IT OK BUT NOT SEND ANY.")
-                //         if (statusText === "OK") {
-                //             history.push("/profile", { email });
-                //         }
-                //     }).catch((e) => {
-                //         // console.log("error wtf", e)
-                //         history.push("/");
-                //     });
             }
         });
     }

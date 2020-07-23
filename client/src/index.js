@@ -2,18 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { history } from './helpers';
 import { Provider } from 'react-redux';
-import { ProtectedRoute, AuthRoute, OnlyNotAuthRoute } from './utils/route';
+import { Protected, Auth, OnlyNotAuth } from './utils/route';
 import { checkSessionInfo } from './utils/session';
 import App from './components/app';
 import Captcha from './components/captcha';
 import Profile from './components/profile';
 import TwoFactor from './components/twofactor';
+import NotFound from './components/notfound';
 import configureStore from './redux/store';
 import * as serviceWorker from './serviceWorker';
 import {
   Router,
-  // Switch,
-  Route
+  Switch,
+  Route,
+  Redirect
 } from "react-router-dom";
 
 import './index.css';
@@ -24,18 +26,34 @@ const renderApp = preloadedState => {
   ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
-        <OnlyNotAuthRoute path='/' component={App} />
-        <ProtectedRoute path='/captcha' component={Captcha} />
-        <ProtectedRoute path='/twofactor' component={TwoFactor} />
-        <AuthRoute path='/profile' component={Profile} />
+        <Switch>
+          <Route
+            exact path='/'
+            component={OnlyNotAuth(App)}
+          />
+          <Route
+            path='/captcha'
+            component={Protected(Captcha)}
+          />
+          <Route
+            path='/twofactor'
+            component={Protected(TwoFactor)}
+          />
+          <Route
+            path='/profile'
+            component={Auth(Profile)}
+          />
+          <Route
+            path='/404'
+            component={NotFound}
+          />
+          <Redirect from='*' to='/404' />
+        </Switch>
       </Router>
     </Provider>,
     document.getElementById('root')
   );
 }
-{/* <Route exact path='/test'>
-    <Captcha />
-  </Route> */}
 
 (async () => renderApp(await checkSessionInfo()))();
 

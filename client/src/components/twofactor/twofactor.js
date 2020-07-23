@@ -33,7 +33,7 @@ const TwoFactor = (props) => {
         if (props.location.state) {
             var { email, method } = props.location.state;
         }
-        // console.log("test btn")
+        setLoading(true);
         loginService.loginMfa(email, code, method)
             .then(({ statusText }) => {
                 setLoading(false);
@@ -68,16 +68,12 @@ const TwoFactor = (props) => {
                             <h6 className="d-flex justify-content-center MuiTypography-root Subheading upper center MuiTypography-subtitle1">Enter the security code to continue</h6>
                             <form className="form-vertical" onSubmit={e => e.preventDefault()}>
                                 <div className="MuiFormControl-root form-field masked-code MuiFormControl-fullWidth" style={{ backgroundColor: 'inherit' }}>
-                                    {/* <input id="partitioned" typ e="text" maxlength="4" /> */}
-                                    {/* <div className="MuiInputBase-root MuiInput-root Mui-error Mui-error">
-                                        </div> */}
                                     <div className="custom-styles">
                                         <ReactInputVerificationCode
                                             id="input-verification-code"
                                             placeholder=""
                                             onChange={onChange}
                                             length={6}
-                                        // refs={register}
                                         />
                                     </div>
                                 </div>
@@ -112,5 +108,5 @@ const TwoFactor = (props) => {
 }
 
 export default withRouter(
-    connect(null, {userDispatch})(TwoFactor)
+    connect(null, { userDispatch })(TwoFactor)
 );

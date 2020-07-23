@@ -1,61 +1,44 @@
 import React from 'react';
-import { Redirect, Route, withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const mapStateToProps = ({ user: { userPresent } }) => ({
     userPresent
 });
 
-const Protected = ({ userPresent, path, component: Component }) => {
-    return (
-        <Route
-            path={path}
-            render={props => (
-                props?.location?.state?.email ?
-                    <Component {...props} /> : 
-                    (
-                        userPresent ?
-                            <Redirect to='/profile' /> :
-                            <Redirect to='/' />
-                    )
-            )}
-        />
-    )
+export const Protected = OriginalComponent => {
+    const ProtectedComponent = ({ userPresent, location }) => (
+        location?.state?.email ?
+            <OriginalComponent /> :
+            (
+                userPresent ?
+                    <Redirect to='/profile' /> :
+                    <Redirect to='/' />
+            )
+    );
+    return withRouter(
+        connect(mapStateToProps)(ProtectedComponent)
+    );
 }
 
-const Auth = ({ userPresent, path, component: Component }) => (
-    <Route
-        exact
-        path={path}
-        render={props => (
-            userPresent ?
-                <Component {...props} /> :
-                <Redirect to='/' />
-        )}
-    />
-);
+export const Auth = OriginalComponent => {
+    const AuthComponent = ({ userPresent }) => (
+        userPresent ?
+            <OriginalComponent /> :
+            <Redirect to='/' />
+    );
+    return withRouter(
+        connect(mapStateToProps)(AuthComponent)
+    );
+}
 
-const OnlyNotAuth = ({ userPresent, path, component: Component }) => (
-    <Route
-        exact
-        path={path}
-        render={props => (
-            userPresent ?
-                <Redirect to='/profile' /> :
-                <Component {...props} />
-        )}
-    />
-);
-
-export const ProtectedRoute = withRouter(
-    connect(mapStateToProps)(Protected)
-);
-
-export const AuthRoute = withRouter(
-    connect(mapStateToProps)(Auth)
-);
-
-export const OnlyNotAuthRoute = withRouter(
-    connect(mapStateToProps)(OnlyNotAuth)
-);
-
+export const OnlyNotAuth = OriginalComponent => {
+    const OnlyNotAuthComponent = ({ userPresent }) => (
+        userPresent ?
+            <Redirect to='/profile' /> :
+            <OriginalComponent />
+    );
+    return withRouter(
+        connect(mapStateToProps)(OnlyNotAuthComponent)
+    );
+}

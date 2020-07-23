@@ -28,7 +28,6 @@ class Captcha extends React.Component {
     };
 
     componentDidMount() {
-        // var email = "jakkarin.mike@gmail.com"
         const { email } = this.props;
         freegamesService.getFreeGames(email)
             .then((freeGames) => {
