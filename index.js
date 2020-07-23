@@ -5,12 +5,17 @@ const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
+const FreeGames = require('./lib/free-games');
+const Purchase = require('./lib/purchase');
 const colors = require('colors');
 const loginApi = require("./routes/login");
 const freeGamesApi = require("./routes/free-games");
 const purchaseApi = require("./routes/purchase");
 const sessionApi = require("./routes/session");
 const cron = require("node-cron");
+const glob = require("glob");
+const fs = require('fs');
+const { newCookieJar } = require('./common/request');
 const { initDb } = require('./lib/db');
 
 const app = express();
@@ -60,17 +65,34 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
-// cron.schedule('0 12 * * *', () => {
-//     console.log('Running a task');
-// });
+cron.schedule('0 12 * * *', async () => {
+    console.log('Running a task');
+
+    const configFiles = glob.sync('./config/*.json');
+    const emailList = configFiles.map(filename => path.basename(filename).split('-cookies')[0]);
+    if (emailList.length && emailList.length > 0) {
+        for (let email of emailList) {
+            const requestClient = newCookieJar(email);
+            const freegames = new FreeGames(requestClient, email);
+            const purchase = new Purchase(requestClient, email);
+            try {
+                console.log('purchase for', email);
+                const offers = await freegames.getAllFreeGames();
+                await purchase.purchaseGames(offers);
+            } catch (e) {
+                console.log(colors.red('purchase failed'));
+                console.log(e);
+            }
+        }
+    }
+});
 
 initDb(databaseConnectionString, async (err, db) => {
-    // On connection error we display then exit
     if (err) {
         console.log(colors.red('Error connecting to MongoDB: ' + err));
         process.exit(2);
     }
-    
+
     app.db = db;
     app.port = app.get('port');
 
@@ -83,8 +105,3 @@ initDb(databaseConnectionString, async (err, db) => {
         process.exit(2);
     }
 });
-
-
-// app.listen(app.get('port'), (err) => {
-//     console.log(`App listening at http://localhost:${app.get('port')}`);
-// });

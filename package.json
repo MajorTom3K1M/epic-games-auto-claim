@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "filenamify": "^4.1.0",
+    "glob": "^7.1.6",
     "got": "^11.5.0",
     "jsdom": "^16.3.0",
     "lodash": "^4.17.19",

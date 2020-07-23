@@ -37,10 +37,10 @@ router.post('/api/login', async (req, res) => {
             ) {
 
             } else {
-                // deleteCookies(email);
+                deleteCookies(email);
             }
         } else {
-            // deleteCookies(email);
+            deleteCookies(email);
         }
         res.status(400).json(e);
     }

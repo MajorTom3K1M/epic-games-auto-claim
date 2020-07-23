@@ -1,10 +1,12 @@
 import Axios from 'axios'
 import {
-    FREE_GAMES_ENDPOINT
+    FREE_GAMES_ENDPOINT,
+    PURCHASE_ENDPOINT
 } from '../constants';
 
 export const freegamesService = {
-    getFreeGames
+    getFreeGames,
+    purhcase
 }
 
 function getFreeGames(email) {
@@ -18,6 +20,24 @@ function getFreeGames(email) {
     return Axios(requestOption)
         .then(handleDataResponse)
         .catch(handleError)
+}
+
+function purhcase(email) {
+    const requestOption = {
+        method: 'POST',
+        url: PURCHASE_ENDPOINT,
+        data: {
+            email
+        }
+    };
+    return Axios(requestOption)
+        .then(handleStatusResponse)
+        .catch(handleError)
+}
+
+function handleStatusResponse(response) {
+    const { status, statusText } = response;
+    return { status, statusText };
 }
 
 function handleDataResponse(response) {

@@ -2,7 +2,8 @@ export const LOGIN_ENDPOINT = 'http://localhost:3001/api/login';
 export const LOGIN_MFA_ENDPOINT = 'http://localhost:3001/api/login/mfa';
 export const FREE_GAMES_ENDPOINT = 'http://localhost:3001/api/freegames';
 export const USER_INFO = 'http://localhost:3001/api/profile';
-export const SESSION_ENDPOINT = 'http://localhost:3001/api/session'
+export const SESSION_ENDPOINT = 'http://localhost:3001/api/session';
+export const PURCHASE_ENDPOINT = 'http://localhost:3001/api/purchase';
 
 export const EpicArkosePublicKey = {
   LOGIN: '37D033EB-6489-3763-2AE1-A228C04103F5',
