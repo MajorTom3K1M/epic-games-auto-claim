@@ -1,0 +1,4 @@
+cron:
+    - description: "get freegame from exist session job"
+      url: /api/purchase/all
+      schedule: every 1 minutes
