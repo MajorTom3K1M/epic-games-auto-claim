@@ -23,4 +23,8 @@ router.post('/api/purchase', async (req, res) => {
     }
 });
 
+router.get('/api/purchase/all', async (req, res) => {
+    console.log('/api/purchase/all was called')
+});
+
 module.exports = router;
