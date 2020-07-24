@@ -1,5 +1,5 @@
 // const API_ENDPOINT = 'https://epicauto.herokuapp.com'
-const API_ENDPOINT = 'http://epic-auto.appspot.com';
+const API_ENDPOINT = 'https://epic-auto.appspot.com';
 // const API_ENDPOINT = 'http://localhost:3001'
 
 export const LOGIN_ENDPOINT = `${API_ENDPOINT}/api/login`;
