@@ -19,6 +19,8 @@ router.post('/api/login', async (req, res) => {
     try {
         const { statusText, status } = await login.fullLogin(email, password, captchaValue);
 
+        console.log(statusText);
+
         req.session.email = email;
         req.session.userPresent = true;
 

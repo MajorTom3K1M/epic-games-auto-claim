@@ -32,10 +32,10 @@ class Captcha extends React.Component {
             callback: (sessionData) => {
                 loginService.login(email, password, sessionData)
                     .then(({ statusText }) => {
-                        if (statusText === "OK") {
-                            this.props.userDispatch(email);
-                            history.push("/profile", { email });
-                        }
+                        this.props.userDispatch(email);
+                        history.push("/profile", { email });
+                        // if (statusText === "OK") {
+                        // }
                     }).catch((e) => {
                         if (
                             e.response.data.errorCode === 'errors.com.epicgames.common.two_factor_authentication.required'

@@ -37,10 +37,10 @@ const TwoFactor = (props) => {
         loginService.loginMfa(email, code, method)
             .then(({ statusText }) => {
                 setLoading(false);
-                if (statusText === "OK") {
-                    props.userDispatch(email);
-                    history.push("/profile", { email });
-                }
+                props.userDispatch(email);
+                history.push("/profile", { email });
+                // if (statusText === "OK") {
+                // }
             })
             .catch((e) => {
                 setLoading(false);

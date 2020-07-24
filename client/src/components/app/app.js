@@ -21,10 +21,10 @@ const App = (props) => {
         loginService.login(email, password)
             .then(({ statusText }) => { 
                 setLoading(false);
-                if(statusText === "OK") {
-                    props.userDispatch(email);
-                    history.push("/profile", { email });
-                }
+                props.userDispatch(email);
+                history.push("/profile", { email });
+                // if(statusText === "OK") {
+                // }
             })
             .catch((e) => {
                 setLoading(false);
