@@ -14,7 +14,7 @@ router.post('/api/login', async (req, res) => {
     }
 
 
-    const requestClient = newCookieJar(email);
+    const requestClient = newCookieJar(req);
     const login = new Login(requestClient, res);
     try {
         const { statusText, status } = await login.fullLogin(email, password, captchaValue);
@@ -37,10 +37,10 @@ router.post('/api/login', async (req, res) => {
             ) {
 
             } else {
-                deleteCookies(email);
+                deleteCookies(req);
             }
         } else {
-            deleteCookies(email);
+            deleteCookies(req);
         }
         res.status(400).json(e);
     }
@@ -49,7 +49,7 @@ router.post('/api/login', async (req, res) => {
 router.post('/api/login/mfa', async (req, res) => {
     const { code, method, email } = req.body;
 
-    const requestClient = newCookieJar(email);
+    const requestClient = newCookieJar(req);
     const login = new Login(requestClient, res);
 
     try {
@@ -60,7 +60,7 @@ router.post('/api/login/mfa', async (req, res) => {
 
         res.status(200).json({ statusText, status });
     } catch (e) {
-        deleteCookies(email);
+        deleteCookies(req);
         res.status(400).json(e);
     }
 });
@@ -68,7 +68,7 @@ router.post('/api/login/mfa', async (req, res) => {
 
 router.post('/api/profile', async (req, res) => {
     const { email } = req.body;
-    const requestClient = newCookieJar(email);
+    const requestClient = newCookieJar(req);
     const profile = new Login(requestClient, res);
     try {
         const { body } = await profile.getProfile();

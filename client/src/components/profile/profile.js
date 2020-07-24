@@ -42,20 +42,20 @@ class Captcha extends React.Component {
             }).catch((e) => {
                 console.log(e);
             });
-        freegamesService.purhcase(email)
-            .then(({ statusText }) => {
-                if (statusText === "OK") {
-                    console.log("OK")
-                    freegamesService.getFreeGames(email)
-                        .then((freeGames) => { 
-                            this.setState({ freeGames })
-                        }).catch((e) => {
-                            console.log(e);
-                        });
-                }
-            }).catch((e) => {
-                console.log(e);
-            });
+        // freegamesService.purhcase(email)
+        //     .then(({ statusText }) => {
+        //         if (statusText === "OK") {
+        //             console.log("OK")
+        //             freegamesService.getFreeGames(email)
+        //                 .then((freeGames) => { 
+        //                     this.setState({ freeGames })
+        //                 }).catch((e) => {
+        //                     console.log(e);
+        //                 });
+        //         }
+        //     }).catch((e) => {
+        //         console.log(e);
+        //     });
 
     }
 

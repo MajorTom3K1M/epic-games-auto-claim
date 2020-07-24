@@ -8,27 +8,27 @@ const MongoStore = require('connect-mongodb-session')(session);
 const FreeGames = require('./lib/free-games');
 const Login = require('./lib/login');
 const Purchase = require('./lib/purchase');
+const tough = require('tough-cookie');
 const colors = require('colors');
 const loginApi = require("./routes/login");
 const freeGamesApi = require("./routes/free-games");
 const purchaseApi = require("./routes/purchase");
 const sessionApi = require("./routes/session");
 const cron = require("node-cron");
-const glob = require("glob");
-const fs = require('fs');
-const { newCookieJar } = require('./common/request');
+const got = require('got');
+const { MongoSessionCookieStore } = require('./lib/mongo-session-cookie-store');
+const { Db } = require('mongodb')
 const { initDb } = require('./lib/db');
 
 const app = express();
 
 const databaseConnectionString = "mongodb+srv://majortom:255312038@cluster0.0au3o.mongodb.net/epic-auto-claim?retryWrites=true&w=majority";
+// const databaseConnectionString = "mongodb://127.0.0.1:27017/epic-auto";
 const store = new MongoStore({
     uri: databaseConnectionString,
     collection: "sessions"
 });
 
-// const secretSession = crypto.randomBytes(20).toString('hex');
-// const secretCookie = crypto.randomBytes(20).toString('hex');
 const secretSession = "e181854993af325045aa5251b9f57f60a2bb1bf8";
 const secretCookie = "47469f94449d8b360e6b566f00a7bd369c441145";
 
@@ -66,29 +66,6 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
 
-cron.schedule('0 12 * * *', async () => {
-    console.log('Running a task');
-
-    const configFiles = glob.sync('./config/*.json');
-    const emailList = configFiles.map(filename => path.basename(filename).split('-cookies')[0]);
-    if (emailList.length && emailList.length > 0) {
-        for (let email of emailList) {
-            const requestClient = newCookieJar(email);
-            const login = new Login(requestClient);
-            const freegames = new FreeGames(requestClient, email);
-            const purchase = new Purchase(requestClient, email);
-            try {
-                console.log('purchase for', email);
-                await login.fullLogin(email, "", "", "");
-                const offers = await freegames.getAllFreeGames();
-                await purchase.purchaseGames(offers);
-            } catch (e) {
-                console.log(colors.red('purchase failed'));
-                console.log(e);
-            }
-        }
-    }
-});
 
 initDb(databaseConnectionString, async (err, db) => {
     if (err) {
@@ -96,15 +73,49 @@ initDb(databaseConnectionString, async (err, db) => {
         process.exit(2);
     }
 
+    /** @type {Db} */
+    const database = db;
     app.db = db;
     app.port = app.get('port');
+
+
+    cron.schedule('0 12 * * *', async () => {
+        const sessionsList = await database.collection('sessions').find({}).toArray();
+        if (sessionsList.length && sessionsList.length > 0) {
+            for (let sessionItem of sessionsList) {
+                if (sessionItem.session.cookieJar && sessionItem.session.email) {
+                    const { email } = sessionItem.session;
+                    const { _id } = sessionItem;
+                    const cookie = new tough.CookieJar(new MongoSessionCookieStore(db, _id));
+    
+                    const requestClient = got.extend({
+                        cookieJar: cookie,
+                        responseType: 'json',
+                    });
+    
+                    const login = new Login(requestClient);
+                    const freegames = new FreeGames(requestClient, email);
+                    const purchase = new Purchase(requestClient, email);
+                    try {
+                        console.log('purchase for', email);
+                        await login.fullLogin(email, "", "", "");
+                        const offers = await freegames.getAllFreeGames();
+                        await purchase.purchaseGames(offers);
+                    } catch (e) {
+                        console.log(colors.red('purchase failed'));
+                        console.log(e);
+                    }
+                }
+            }
+        }
+    });
 
     try {
         await app.listen(app.get('port'));
         app.emit('appStarted');
-        console.log(colors.green('MyCart running on host: http://localhost:' + app.get('port')));
+        console.log(colors.green('EPICAUTOCLAIM running on host: http://localhost:' + app.get('port')));
     } catch (ex) {
-        console.error(colors.red('Error starting MyCart app:' + err));
+        console.error(colors.red('Error starting EPICAUTOCLAIM app:' + err));
         process.exit(2);
     }
 });

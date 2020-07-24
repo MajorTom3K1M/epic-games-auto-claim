@@ -1,1 +1,0 @@
-## This Folder For Collect Cookies

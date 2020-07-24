@@ -1,6 +1,7 @@
 const got = require('got');
 const tough = require('tough-cookie');
 const { FileCookieStore } = require('tough-cookie-file-store');
+const { MongoCookieStore } = require('../lib/mongo-cookie-store');
 const fs = require('fs');
 const filenamify = require('filenamify');
 
@@ -9,20 +10,17 @@ module.exports = {
         cookieJar: new tough.CookieJar(new FileCookieStore(`./config/cookies.json`)),
         responseType: 'json',
     }),
-    newCookieJar: (username) => {
-        const fileSafeUsername = filenamify(username);
+    newCookieJar: (request) => {
+        const cookie = new tough.CookieJar(new MongoCookieStore(request));
+        console.log(cookie);
         return got.extend({
-            cookieJar: new tough.CookieJar(
-                new FileCookieStore(`./config/${fileSafeUsername}-cookies.json`)
-            ),
+            cookieJar: cookie,
             responseType: 'json',
         });
     },
-    deleteCookies: (username) => {
-        if (username) {
-            fs.unlinkSync(`./config/${username}-cookies.json`);
-        } else {
-            fs.unlinkSync(`./config/cookies.json`);
+    deleteCookies: (request) => {
+        if (request) {
+            request.session.destroy();
         }
     }
 }

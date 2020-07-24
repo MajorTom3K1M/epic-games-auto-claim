@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/api/purchase', async (req, res) => {
     const { email } = req.body;
 
-    const requestClient = newCookieJar(email);
+    const requestClient = newCookieJar(req);
     const login = new Login(requestClient);
     const freegames = new FreeGames(requestClient, email);
     const purchase = new Purchase(requestClient, email);

@@ -6,7 +6,7 @@ const { newCookieJar } = require('../common/request');
 router.post('/api/freegames', async (req, res) => {
     const { email } = req.body;
 
-    const requestClient = newCookieJar(email);
+    const requestClient = newCookieJar(req);
     const freegames = new FreeGames(requestClient, email);
     try {
         const response = await freegames.getAllFreeGames();
