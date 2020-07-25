@@ -2,7 +2,12 @@ const express = require('express');
 const FreeGames = require('../lib/free-games');
 const Login = require('../lib/login');
 const Purchase = require('../lib/purchase');
+const colors = require('colors');
+const tough = require('tough-cookie');
+const got = require('got');
 const { newCookieJar } = require('../common/request');
+const { MongoSessionCookieStore } = require('../lib/mongo-session-cookie-store');
+
 const router = express.Router();
 
 router.post('/api/purchase', async (req, res) => {
