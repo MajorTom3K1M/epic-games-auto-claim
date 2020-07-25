@@ -59,6 +59,7 @@ router.get('/api/purchase/all', async (req, res) => {
             }
         }
     }
+    res.status(200).json({});
 });
 
 module.exports = router;
