@@ -6,6 +6,8 @@ import { withRouter } from 'react-router-dom';
 import { EpicArkosePublicKey } from '../../utils/constants';
 import { loginService } from '../../utils/services';
 import { history } from '../../helpers';
+import loadScript from '../../helpers/load-script';
+import removeScript from '../../helpers/remove-script';
 import {
     Container, Row
 } from 'reactstrap';
@@ -15,9 +17,14 @@ class Captcha extends React.Component {
         loading: false
     }
     componentDidMount() {
-        setTimeout(() => {
-            this.scriptLoaded();
-        }, 1000);
+        loadScript(
+            document,
+            'script',
+            'fun-captcha',
+            'https://cdn.arkoselabs.com/fc/js/96677ba21f0e74ba2a358a3053d33cd9/standard/funcaptcha_api.js',
+            () => {
+                this.scriptLoaded();
+            });
     }
 
     scriptLoaded() {
@@ -25,7 +32,6 @@ class Captcha extends React.Component {
         if (this.props.location.state) {
             var { email, password } = this.props.location.state;
         }
-
         new window.FunCaptcha({
             public_key: EpicArkosePublicKey.LOGIN,
             target_html: "CAPTCHA",
@@ -34,8 +40,6 @@ class Captcha extends React.Component {
                     .then(({ statusText }) => {
                         this.props.userDispatch(email);
                         history.push("/profile", { email });
-                        // if (statusText === "OK") {
-                        // }
                     }).catch((e) => {
                         if (
                             e.response.data.errorCode === 'errors.com.epicgames.common.two_factor_authentication.required'
@@ -43,11 +47,15 @@ class Captcha extends React.Component {
                             const method = e.response.data.metadata.twoFactorMethod;
                             history.push("/twofactor", { email, password, method });
                         } else {
-                            window.location.path = '/';
+                            history.push("/");
                         }
                     });
             }
         });
+    }
+
+    componentWillUnmount() {
+        removeScript(document, 'fun-captcha');
     }
 
     render() {

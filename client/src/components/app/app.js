@@ -7,6 +7,7 @@ import { loginSchema } from './appSchema';
 import { history } from '../../helpers';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers';
+
 import './app.css';
 
 const App = (props) => {
