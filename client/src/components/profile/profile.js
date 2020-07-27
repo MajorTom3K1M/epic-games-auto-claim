@@ -32,15 +32,21 @@ class Captcha extends React.Component {
         freegamesService.getFreeGames(email)
             .then((freeGames) => {
                 this.setState({ freeGames })
-                // loginService.getProfile(email)
-                //     .then((user) => {
-                //         console.log(user);
-                //         this.setState({ user })
-                //     }).catch((e) => {
-                //         console.log(e);
-                //     });
             }).catch((e) => {
                 console.log(e);
+                loginService.getProfile(email)
+                    .then((user) => {
+                        console.log(user);
+                        this.setState({ user })
+                        freegamesService.getFreeGames(email)
+                            .then((freeGames) => {
+                                this.setState({ freeGames })
+                            }).catch((e) => {
+                                console.log(e);
+                            });
+                    }).catch((e) => {
+                        console.log(e);
+                    });
             });
         // freegamesService.purhcase(email)
         //     .then(({ statusText }) => {
