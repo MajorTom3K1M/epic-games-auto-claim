@@ -2,6 +2,7 @@ const CSRF_ENDPOINT = 'https://www.epicgames.com/id/api/csrf';
 const ACCOUNT_CSRF_ENDPOINT = 'https://www.epicgames.com/account/v2/refresh-csrf';
 const ACCOUNT_SESSION_ENDPOINT = 'https://www.epicgames.com/account/personal';
 const LOGIN_ENDPOINT = 'https://www.epicgames.com/id/api/login';
+const GOOGLE_ENDPOINT = 'https://www.epicgames.com/id/api/external/google/login';
 const REDIRECT_ENDPOINT = 'https://www.epicgames.com/id/api/redirect';
 
 const GRAPHQL_ENDPOINT = 'https://www.epicgames.com/store/backend/graphql-proxy'; // Reqiores store-token cookie for auth
@@ -20,6 +21,7 @@ const SETUP_MFA =
 const FREE_GAMES_PROMOTIONS_ENDPOINT =
   'https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions';
 const STORE_HOMEPAGE = 'https://www.epicgames.com/store/en-US/';
+// https://www.epicgames.com/store/en-US/
 const ORDER_CONFIRM_ENDPOINT =
   'https://payment-website-pci.ol.epicgames.com/purchase/confirm-order';
 const ORDER_PREVIEW_ENDPOINT =

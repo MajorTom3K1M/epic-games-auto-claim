@@ -2,3 +2,6 @@ cron:
     - description: "get freegame from exist session job"
       url: /api/purchase/all
       schedule: every 8 hours
+    - description: "delete useless session"
+      url: /api/session/clear
+      schedule: every 8 hours

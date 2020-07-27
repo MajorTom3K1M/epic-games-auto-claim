@@ -10,8 +10,8 @@ module.exports = {
         cookieJar: new tough.CookieJar(new FileCookieStore(`./config/cookies.json`)),
         responseType: 'json',
     }),
-    newCookieJar: (request) => {
-        const cookie = new tough.CookieJar(new MongoCookieStore(request));
+    newCookieJar: (requestClient) => {
+        const cookie = new tough.CookieJar(new MongoCookieStore(requestClient));
         console.log(cookie);
         return got.extend({
             cookieJar: cookie,

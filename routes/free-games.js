@@ -4,10 +4,11 @@ const router = express.Router();
 const { newCookieJar } = require('../common/request');
 
 router.post('/api/freegames', async (req, res) => {
+    const db = req.app.db;
     const { email } = req.body;
 
     const requestClient = newCookieJar(req);
-    const freegames = new FreeGames(requestClient, email);
+    const freegames = new FreeGames(requestClient);
     try {
         const response = await freegames.getAllFreeGames();
         res.status(200).json(response);

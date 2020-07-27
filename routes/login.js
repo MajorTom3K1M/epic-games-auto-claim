@@ -1,30 +1,63 @@
 const express = require('express');
+const crypto = require('../lib/encrypt');
 const Login = require('../lib/login');
+const { Db } = require('mongodb');
 const router = express.Router();
 const { newCookieJar, deleteCookies } = require('../common/request');
 
 router.post('/api/login', async (req, res) => {
     const { email, password, captcha } = req.body;
-    // console.log(req.app.db.users)
 
-    const db = req.app.db
+    /** @type {Db} */
+    const db = req.app.db;
     var captchaValue = captcha;
     if (!req.body.captcha) {
         captchaValue = "";
     }
-
 
     const requestClient = newCookieJar(req);
     const login = new Login(requestClient, res);
     try {
         const { statusText, status } = await login.fullLogin(email, password, captchaValue);
 
-        console.log(statusText);
-
         req.session.email = email;
         req.session.userPresent = true;
 
-        res.status(200).json({ statusText, status });
+        const user = await db.collection('users').findOne({ email: email });
+        if (!user) {
+            try {
+                await db.collection('users').insertOne({ email: email, password: crypto.encrypt(password) });
+
+                req.session.email = email;
+                req.session.userPresent = true;
+
+                res.status(200).json({});
+                return;
+            } catch (e) {
+                console.log(e);
+                res.status(400).json({
+                    errorCode: "errors.com.epicgames.account.invalid_account_credentials",
+                    message: "Sorry the credentials you are using are invalid."
+                });
+                return;
+            }
+        } else {
+            if (crypto.decrypt(user.password) === password) {
+                req.session.email = email;
+                req.session.userPresent = true;
+
+                res.status(200).json({ statusText, status, message: 'Successfully logged in' });
+                return;
+            } else {
+                console.log(e);
+                res.status(400).json({
+                    errorCode: "errors.com.epicgames.account.invalid_account_credentials",
+                    message: 'Access denied. Check password and try again.'
+                });
+                return;
+            }
+        }
+        // res.status(200).json({ statusText, status, message: 'Successfully logged in' });
     } catch (e) {
         if (e.errorCode) {
             if (e.errorCode.includes('session_invalidated')) {
@@ -50,13 +83,14 @@ router.post('/api/login', async (req, res) => {
 
 router.post('/api/login/mfa', async (req, res) => {
     const { code, method, email } = req.body;
+    const db = req.app.db;
 
     const requestClient = newCookieJar(req);
     const login = new Login(requestClient, res);
 
     try {
         const { statusText, status } = await login.loginMFA(code, method, email);
-        // await login.login(email, "", "");
+        
         req.session.email = email;
         req.session.userPresent = true;
 
@@ -70,11 +104,11 @@ router.post('/api/login/mfa', async (req, res) => {
 
 router.post('/api/profile', async (req, res) => {
     const { email } = req.body;
+    const db = req.app.db;
     const requestClient = newCookieJar(req);
-    const profile = new Login(requestClient, res);
+    const profile = new Login(requestClient);
     try {
         const { body } = await profile.getProfile();
-        console.log(body);
         res.status(200).json(body);
     } catch (e) {
         res.status(400).json(e);
