@@ -18,12 +18,17 @@ router.post('/api/login', async (req, res) => {
     const requestClient = newCookieJar(req);
     const login = new Login(requestClient, res);
     try {
-        const { statusText, status } = await login.fullLogin(email, password, captchaValue);
-
-        req.session.email = email;
-        req.session.userPresent = true;
-
         const user = await db.collection('users').findOne({ email: email });
+
+        if(user) {
+            var { statusText, status } = await login.fullLogin(email, user.password, captchaValue);
+        } else {
+            var { statusText, status } = await login.fullLogin(email, user.password, captchaValue);
+        }
+
+        // req.session.email = email;
+        // req.session.userPresent = true;
+
         if (!user) {
             try {
                 await db.collection('users').insertOne({ email: email, password: crypto.encrypt(password) });
