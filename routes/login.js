@@ -17,17 +17,18 @@ router.post('/api/login', async (req, res) => {
 
     const requestClient = newCookieJar(req);
     const login = new Login(requestClient, res);
+    var pass = password
     try {
-        const user = await db.collection('users').findOne({ email: email });
-
-        if(user) {
-            var { statusText, status } = await login.fullLogin(email, user.password, captchaValue);
-        } else {
-            var { statusText, status } = await login.fullLogin(email, user.password, captchaValue);
+        var user = await db.collection('users').findOne({ email: email });
+        if (password || password === "") {
+            pass = user.password;
         }
+    } catch (e) {
+        console.log("Create new users");
+    }
 
-        // req.session.email = email;
-        // req.session.userPresent = true;
+    try {
+        var { statusText, status } = await login.fullLogin(email, pass, captchaValue);
 
         if (!user) {
             try {
@@ -95,7 +96,7 @@ router.post('/api/login/mfa', async (req, res) => {
 
     try {
         const { statusText, status } = await login.loginMFA(code, method, email);
-        
+
         req.session.email = email;
         req.session.userPresent = true;
 
