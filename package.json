@@ -28,7 +28,7 @@
     "mongodb": "^3.5.9",
     "mongodb-uri": "^0.9.7",
     "node-cron": "^2.0.3",
-    "nodemailer": "^6.4.10",
+    "nodemailer": "^6.4.16",
     "otpauth": "^6.0.4",
     "set-cookie-parser": "^2.4.6",
     "tough-cookie": "^4.0.0",
