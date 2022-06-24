@@ -23,7 +23,7 @@
     "glob": "^7.1.6",
     "google-auth-library": "^6.0.5",
     "got": "^11.5.0",
-    "jsdom": "^16.3.0",
+    "jsdom": "^16.5.0",
     "lodash": "^4.17.19",
     "mongodb": "^3.5.9",
     "mongodb-uri": "^0.9.7",
